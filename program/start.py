@@ -53,38 +53,30 @@ async def _human_time_duration(seconds):
 )
 async def start_(client: Client, message: Message):
     await message.reply_text(
-        f"""✨ **Welcome {message.from_user.mention()} !**\n
-💭 [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **Allows you to play music and video on groups through the new Telegram's video chats!**
-
-💡 **Find out all the Bot's commands and how they work by clicking on the » 📚 Commands button!**
-
-🔖 **To know how to use this bot, please click on the » ❓ Basic Guide button!**
-""",
+        f"""✨ **Hoşgeldin [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**\n
+💭 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) yeni Telegram'ın görüntülü sohbetleri aracılığıyla gruplarda müzik ve video oynatmanıza olanak tanır!**
+💡 **📚 Komutlar düğmesini tıklayarak Bot'un tüm komutlarını ve nasıl çalıştıklarını öğrenin!**
+🔖 **Bu botun nasıl kullanılacağını öğrenmek için lütfen tıklayın » ❓ Basit Komutlar!**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "➕ Add me to your Group ➕",
+                        "➕ Gruba Ekle➕",
                         url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
                     )
                 ],
-                [InlineKeyboardButton("❓ Basic Guide", callback_data="cbhowtouse")],
+                [InlineKeyboardButton("❓ Basit komutlar", callback_data="cbhowtouse")],
                 [
-                    InlineKeyboardButton("📚 Commands", callback_data="cbcmds"),
-                    InlineKeyboardButton("❤️ Donate", url=f"https://t.me/{OWNER_NAME}"),
+                    InlineKeyboardButton("📚 Komutlar", callback_data="cbcmds"),
+                    InlineKeyboardButton(" Sahibi ", url=f"https://t.me/{OWNER_NAME}"),
                 ],
                 [
                     InlineKeyboardButton(
                         "👥 Official Group", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "📣 Official Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "📣 Official Kanal", url=f"https://t.me/{UPDATES_CHANNEL}"
                     ),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "🌐 Source Code", url="https://github.com/levina-lab/video-stream"
-                    )
                 ],
             ]
         ),
@@ -147,9 +139,9 @@ async def new_chat(c: Client, m: Message):
     for member in m.new_chat_members:
         if member.id == bot_id:
             return await m.reply(
-                "❤️ **Thanks for adding me to the Group !**\n\n"
-                "**Promote me as administrator of the Group, otherwise I will not be able to work properly, and don't forget to type /userbotjoin for invite the assistant.**\n\n"
-                "**Once done, type** /reload",
+                "❤️ **Gruba eklediğiniz için teşekkürlerr !**\n\n"
+                "**Beni Grubun yöneticisi olarak yükseltin, aksi takdirde düzgün çalışamayacağım ve asistanı davet etmek için /gel yazmayı unutmayın.**\n\n"
+                "**bunları yaptıktan sonra, ** /reload" yazın,
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
