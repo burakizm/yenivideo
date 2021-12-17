@@ -63,16 +63,16 @@ async def skip(client, m: Message):
         elif op == 1:
             await m.reply("✅ liste boş.\n\n• bot sesli sohbetten ayrılıyor")
         elif op == 2:
-            await m.reply("")
+            await m.reply("✅ liste boş.\n\n• bot sesli sohbetten ayrılıyor")
         else:
             await m.reply_photo(
                 photo=f"{IMG_3}",
-                caption=f"⏭ **Skipped to the next track.**\n\n🏷 **Name:** [{op[0]}]({op[1]})\n💭 **Chat:** `{chat_id}`\n💡 **Status:** `Playing`\n🎧 **Request by:** {m.from_user.mention()}",
+                caption=f"⏭ **bir sonraki parçaya atlandı.**\n\n🏷 **isim:** [{op[0]}]({op[1]})\n💭 **sohbet:** `{chat_id}`\n💡 **durum:** `oynatılıyor`\n🎧 **Talep eden:** {m.from_user.mention()}",
                 reply_markup=keyboard,
             )
     else:
         skip = m.text.split(None, 1)[1]
-        OP = "🗑 **removed song from queue:**"
+        OP = "🗑 **sıradan şarkı kaldırıldı:**"
         if chat_id in QUEUE:
             items = [int(x) for x in skip.split(" ") if x.isdigit()]
             items.sort(reverse=True)
@@ -89,7 +89,7 @@ async def skip(client, m: Message):
 
 
 @Client.on_message(
-    command(["stop", f"stop@{BOT_USERNAME}", "end", f"end@{BOT_USERNAME}", "vstop"])
+    command(["son", f"son@{BOT_USERNAME}", "end", f"end@{BOT_USERNAME}", "vson"])
     & other_filters
 )
 @authorized_users_only
@@ -99,15 +99,15 @@ async def stop(client, m: Message):
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await m.reply("✅ The userbot has disconnected from the video chat.")
+            await m.reply("✅ Akış sonlandırıldı.Hoşçakalın...")
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing is streaming**")
+        await m.reply("❌ **Akışta hiçbir şey yok**")
 
 
 @Client.on_message(
-    command(["pause", f"pause@{BOT_USERNAME}", "vpause"]) & other_filters
+    command(["durdur", f"durdur@{BOT_USERNAME}", "vdurdur"]) & other_filters
 )
 @authorized_users_only
 async def pause(client, m: Message):
@@ -116,16 +116,16 @@ async def pause(client, m: Message):
         try:
             await call_py.pause_stream(chat_id)
             await m.reply(
-                "⏸ **Track paused.**\n\n• **To resume the stream, use the**\n» /resume command."
+                "⏸ **Parça duraklatıldı.**\n\n• **Yayına devam etmek için, **\n» /devam komutunu kullanınız."
             )
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
+            await m.reply(f"🚫 **hata:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **hiçbir şey oynatılmıyor**")
 
 
 @Client.on_message(
-    command(["resume", f"resume@{BOT_USERNAME}", "vresume"]) & other_filters
+    command(["devam", f"devam@{BOT_USERNAME}", "vdevam"]) & other_filters
 )
 @authorized_users_only
 async def resume(client, m: Message):
@@ -134,12 +134,12 @@ async def resume(client, m: Message):
         try:
             await call_py.resume_stream(chat_id)
             await m.reply(
-                "▶️ **Track resumed.**\n\n• **To pause the stream, use the**\n» /pause command."
+                "▶️ **Parça devam ettirildi."
             )
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
+            await m.reply(f"🚫 **hata:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **hiçbir şey oynatılmıyor**")
 
 
 @Client.on_message(
